@@ -1,31 +1,31 @@
 
-  import { monsters } from './monsters.js';
-console.log(monsters);
+import { monsters } from './monsters.js';
+
 
 for(let monster of monsters){
 
     showMonsters(monster);
 }
 
-showMonsters();
+
 
 function showMonsters(monster){
     const monsterDiv = document.createElement('div');
     monsterDiv.className ='monster';
 
     const img = document.createElement('img');
-    img.src=`https://robohash.org/60?set=set2`;
-    img.alt='monster.name';
+    img.src=`https://robohash.org/${monster.id}?set=set2`;
+    img.alt=monster.name;
 
 
 
     const name =document.createElement('p');
     name.className ='name';
-    name.innerText='Rakib';
+    name.innerText=monster.name;
     
     const email =document.createElement('p');
     email.className='email';
-    email.innerText ='monster.email';
+    email.innerText =monster.email;
 
     monsterDiv.append(img,name,email);
 
@@ -33,6 +33,7 @@ function showMonsters(monster){
 
 
 }
+
 
 notfound();
 
@@ -52,3 +53,44 @@ function notfound(){
   document.querySelector('.monsters').append(notFoundDiv);
 
 }
+
+let a=5;
+console.log(a);
+document
+.querySelector('#search-monster')
+.addEventListener('keyup', function(e){
+const keyword = e.target.value.toLowerCase();
+console.log(e);
+console.log(keyword);
+
+
+const monsters = document.querySelectorAll('.monster');
+
+let notFound = true;
+
+for(let monster of monsters){
+ const name = monster.children[1].innerText.toLowerCase();
+ const email =monster.children[2].innerText.toLowerCase();
+
+ if(name.includes(keyword) || email.includes(keyword)){
+   monster.style.display='block';
+  notFound = false;
+ }
+ else{
+   monster.style.display='none';
+ }
+
+ if(notFound){
+   document.querySelector('.not-found').style.display='block';
+ }
+ else{
+  document.querySelector('.not-found').style.display='none';
+ }
+}
+});
+
+
+document.querySelector('#search-monster-form')
+.addEventListener('submit',(e)=> {
+  e.preventDefault();
+});
